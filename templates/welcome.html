@@ -1,59 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Welcome to ChalakSetu</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <meta charset="UTF-8">
+  <title>Welcome to ChalakSetu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://png.pngtree.com/png-clipart/20230812/original/pngtree-auto-mechanic-icon-color-flat-picture-image_7877632.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #0f172a;
+      --bg2: #1e293b;
+      --accent: #6366f1;
+      --accent2: #38bdf8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      animation: blobMove 20s ease-in-out infinite alternate;
+    }
+
+    .blob1 {
+      width: 400px;
+      height: 400px;
+      background: var(--accent);
+      top: -100px;
+      left: -100px;
+    }
+
+    .blob2 {
+      width: 300px;
+      height: 300px;
+      background: var(--accent2);
+      bottom: -80px;
+      right: -80px;
+      animation-delay: 5s;
+    }
+
+    @keyframes blobMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+
+    .container {
+      width: 90%;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+      animation: slideFade 1s ease forwards;
+      z-index: 2;
+    }
+
+    @keyframes slideFade {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 26px;
+      margin-bottom: 25px;
+      color: #fff;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #cbd5e1;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+      appearance: none;
+      cursor: pointer;
+    }
+
+    select option {
+      background-color: #1e293b;
+      color: #fff;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(to right, var(--accent), var(--accent2));
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px var(--accent2);
+    }
+
+    .flash {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-left: 4px solid #00c853;
+      color: #fff;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .empty-box {
+      margin-top: 30px;
+      padding: 20px;
+      border: 1px dashed rgba(255, 255, 255, 0.3);
+      border-radius: 12px;
+      background-color: rgba(255, 255, 255, 0.1);
+      min-height: 100px;
+      color: #fff;
+    }
+
+    .empty-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .empty-box li {
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .empty-box p {
+      color: #ccc;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="form-container-2">
-            <h2>Welcome to ChalakSetu</h2>
 
-            <form action="/start" method="POST">
-                <!-- Dropdown with search -->
-                <div class="input-group">
-                    <label for="options" style="text-align: center;">Choose an option:</label>
-                    <select id="options" name="selected_city" required>
-                        <option value="" style="text-align: center;">--Select an option--</option>
-                        {% for i in range(city | length) %}
-                            <option value="{{ city[i] }}" style="text-align: center;">{{ city[i] }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+  <!-- Animated Blobs -->
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
 
-                <!-- Start button -->
-                <div class="form-actions" style="justify-content: center; margin-top: 20px;">
-                    <button type="submit" id="start-btn">Start</button>
-                </div>
-            </form>
+  <div class="container">
+    <h2>🚗 Welcome to ChalakSetu</h2>
 
-            {% with messages = get_flashed_messages(with_categories=true) %}
-              {% if messages %}
-                {% for category, message in messages %}
-                  <div class="flash {{ category }}">
-                    <p style="color: green; text-align: center;">{{ message }}</p>
-                  </div>
-                {% endfor %}
-              {% endif %}
-            {% endwith %}
+    <form action="/start" method="POST">
+      <div class="input-group">
+        <label for="options">Choose Your City</label>
+        <select id="options" name="selected_city" required>
+          <option value="">--Select City--</option>
+          {% for i in range(city | length) %}
+            <option value="{{ city[i] }}">{{ city[i] }}</option>
+          {% endfor %}
+        </select>
+      </div>
 
-            <!-- Big empty rectangle box -->
-            <!-- Big empty rectangle box -->
-            <div class="empty-box">
-                {% if mechanics_list %}
-                    <ul>
-                        {% for mechanic in mechanics_list %}
-                            <li>{{ mechanic }}</li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p style="text-align: center;">No mechanics to show yet.</p>
-                {% endif %}
-            </div>
+      <button type="submit">Start</button>
+    </form>
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">
+            <p>{{ message }}</p>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
 
-        </div>
+    <div class="empty-box">
+      {% if mechanics_list %}
+        <ul>
+          {% for mechanic in mechanics_list %}
+            <li>{{ mechanic }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No mechanics to show yet.</p>
+      {% endif %}
     </div>
+  </div>
+
 </body>
 </html>

@@ -1,34 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Verify OTP</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verify Email OTP - ChalakSetu</title>
+  <link rel="icon" href="https://png.pngtree.com/png-clipart/20230812/original/pngtree-auto-mechanic-icon-color-flat-picture-image_7877632.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent1: #4facfe;
+      --accent2: #00f2fe;
+      --glass-bg: rgba(255, 255, 255, 0.08);
+    }
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: linear-gradient(-45deg, #1e293b, #0f172a);
+      background-size: 400% 400%;
+      animation: backgroundFlow 10s ease infinite;
+      height: 100vh; display: flex; justify-content: center; align-items: center;
+      overflow: hidden; position: relative;
+      color: white;
+    }
+    @keyframes backgroundFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      animation: float 20s ease-in-out infinite alternate;
+    }
+    .blob1 {
+      width: 250px; height: 250px;
+      background: var(--accent1);
+      top: -80px; left: -100px;
+    }
+    .blob2 {
+      width: 200px; height: 200px;
+      background: var(--accent2);
+      bottom: -60px; right: -60px;
+      animation-delay: 8s;
+    }
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+    .container {
+      position: relative;
+      z-index: 2;
+      width: 100%; max-width: 400px;
+      padding: 20px;
+    }
+    .form-container {
+      background: var(--glass-bg);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 35px 30px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.4);
+      animation: fadeIn 0.8s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 25px;
+    }
+    .input-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #d1d5db;
+    }
+    input {
+      width: 100%; padding: 12px;
+      border: none; border-radius: 12px;
+      background-color: rgba(255, 255, 255, 0.15);
+      color: white; font-size: 14px;
+    }
+    input::placeholder {
+      color: #cbd5e1;
+    }
+    input:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 0 10px var(--accent2);
+    }
+    button {
+      width: 100%; padding: 12px;
+      border: none; border-radius: 12px;
+      background: linear-gradient(to right, var(--accent1), var(--accent2));
+      font-weight: bold; font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--accent2);
+      transition: 0.3s;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px var(--accent2);
+    }
+    .flash {
+      background: rgba(255, 0, 0, 0.15);
+      padding: 12px;
+      border-left: 4px solid red;
+      border-radius: 8px;
+      color: #fff5f5;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="form-container">
-            <h2>Verify Your Email</h2>
+  <!-- Background Blobs -->
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
 
-            {% with messages = get_flashed_messages(with_categories=true) %}
-              {% if messages %}
-                {% for category, message in messages %}
-                  <p style="color: red;">{{ message }}</p>
-                {% endfor %}
-              {% endif %}
-            {% endwith %}
+  <div class="container">
+    <div class="form-container">
+      <h2>🔐 Verify OTP</h2>
 
-            <form action="/verify_otp" method="POST">
-                <div class="input-group">
-                    <label for="otp">Enter OTP</label>
-                    <input type="text" id="otp" name="otp" placeholder="Enter the OTP sent to your email" required>
-                </div>
-                <div class="form-actions">
-                    <button type="submit">Verify OTP</button>
-                </div>
-            </form>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="flash">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
 
+      <form action="/verify_otp" method="POST">
+        <div class="input-group">
+          <label for="otp">Enter OTP</label>
+          <input type="text" id="otp" name="otp" placeholder="Enter OTP from your email" required>
         </div>
+        <button type="submit">Verify OTP</button>
+      </form>
     </div>
+  </div>
 </body>
 </html>

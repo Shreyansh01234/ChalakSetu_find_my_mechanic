@@ -7,3 +7,5 @@ class User(db.Model):
 # Only run once to create the table!
 with app.app_context():
     db.create_all()
+
+

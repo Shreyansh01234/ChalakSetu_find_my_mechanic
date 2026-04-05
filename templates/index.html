@@ -1,53 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChalakSetu Login / Sign Up</title>
-    <link rel="icon" href="https://png.pngtree.com/png-clipart/20230812/original/pngtree-auto-mechanic-icon-color-flat-picture-image_7877632.png" type="image/png">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ChalakSetu Login</title>
+  <link rel="icon" href="https://png.pngtree.com/png-clipart/20230812/original/pngtree-auto-mechanic-icon-color-flat-picture-image_7877632.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #0f172a;
+      --bg2: #1e293b;
+      --accent: #6366f1;
+      --accent2: #38bdf8;
+    }
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      animation: blobMove 20s ease-in-out infinite alternate;
+    }
+
+    .blob1 {
+      width: 400px;
+      height: 400px;
+      background: var(--accent);
+      top: -100px;
+      left: -100px;
+    }
+
+    .blob2 {
+      width: 300px;
+      height: 300px;
+      background: var(--accent2);
+      bottom: -80px;
+      right: -80px;
+      animation-delay: 5s;
+    }
+
+    @keyframes blobMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+
+    .login-container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+      animation: slideFade 1s ease forwards;
+    }
+
+    @keyframes slideFade {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-container h2 {
+      color: #fff;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 26px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .input-group input:focus {
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 10px var(--accent2);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(to right, var(--accent), var(--accent2));
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px var(--accent2);
+    }
+
+    .form-footer, .signup-link {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #94a3b8;
+      text-align: center;
+    }
+
+    .form-footer a, .signup-link a {
+      color: var(--accent2);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .form-footer a:hover, .signup-link a:hover {
+      text-decoration: underline;
+    }
+
+    .flash {
+      background: rgba(255, 0, 0, 0.2);
+      border-left: 4px solid red;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      color: #fff;
+    }
+  </style>
 </head>
-
-
 <body>
-    <div class="container">
-        <div class="form-container">
-            <h2>ChalakSetu Login</h2>
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
 
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                  {% if messages %}
-                    {% for category, message in messages %}
-                      <div class="flash {{ category }}">
-                         <p style="color: red; text-align: center;">{{ message }}</p>
-                      </div>
+  <div class="login-container">
+    <h2>🔧 ChalakSetu Login</h2>
 
-                    {% endfor %}
-                  {% endif %}
-                {% endwith %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
 
+    <form action="/" method="POST">
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit">Login</button>
 
-            <form action="/" method="POST">
-                <div class="input-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
-                </div>
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
-                </div>
-                <div class="form-actions">
-                    <button type="submit">Login</button>
-                    <a href="#">Forgot Password?</a>
-                </div>
-                <div class="signup-link">
-                    <br>
-                    <p>Don't have an account? </p>
-                    <p><a href="/signup">Sign Up</a></p>
-                </div>
-            </form>
+      <div class="form-footer">
+        <a href="/forgot_password">Forgot Password?</a>
+      </div>
 
-        </div>
-    </div>
+      <div class="signup-link">
+        Don't have an account? <a href="/signup">Sign Up</a>
+      </div>
+    </form>
+  </div>
 </body>
 </html>

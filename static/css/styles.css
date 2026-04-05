@@ -5,93 +5,128 @@
     box-sizing: border-box;
 }
 
-/* Body styling */
+/* Body styling with animated background */
 body {
-    font-family: 'Courier New', Courier, monospace;
-    background-color: #0a0a0a;
-    color: #00ff00;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: #00ffea;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
+    min-height: 100vh;
+    overflow: hidden;
 }
 
-/* Container for the form */
+/* Background animation */
+@keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+/* Container */
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    width: 100%;
 }
 
-/* Form styling */
+/* Form container */
 .form-container {
-    background-color: #1a1a1a;
-    padding: 20px;
-    border: 2px solid #00ff00;
-    border-radius: 10px;
-    width: 25vw;
-    height: 60vh;
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border: 1px solid #00ffea;
+    border-radius: 20px;
+    width: 320px;
+    min-height: 480px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    transition: 0.3s;
 }
 
-/* Heading styling */
+.form-container:hover {
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+}
+
+/* Heading */
 h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    font-size: 26px;
+    color: #00ffd5;
+    position: relative;
 }
 
-/* Input group styling */
+h2::after {
+    content: '🔧';
+    display: block;
+    margin: 10px auto 0;
+    font-size: 24px;
+}
+
+/* Input group */
 .input-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    width: 100%;
 }
 
 .input-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     font-size: 14px;
+    font-weight: 600;
+    color: #00ffe0;
 }
 
-.input-group input {
+.input-group input,
+.input-group select {
     width: 100%;
-    padding: 10px;
-    background-color: #333;
-    border: 1px solid #00ff00;
-    border-radius: 5px;
-    color: #00ff00;
+    padding: 12px;
+    background-color: #1b1b2f;
+    border: 1px solid #00ffea;
+    border-radius: 10px;
+    color: #ffffff;
     font-size: 14px;
+    transition: 0.3s;
 }
 
-.input-group input:focus {
+.input-group input:focus,
+.input-group select:focus {
     outline: none;
-    border-color: #00cc00;
+    border-color: #00e1ff;
+    box-shadow: 0 0 10px #00f7ff;
 }
 
-/* Form actions styling */
+/* Form actions */
 .form-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-top: 20px;
 }
 
 .form-actions button {
-    background-color: #00ff00;
-    color: black;
+    background: linear-gradient(135deg, #00ffd5, #00bfff);
+    color: #0a0a0a;
+    font-weight: bold;
     border: none;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 12px;
+    border-radius: 10px;
     cursor: pointer;
     width: 48%;
+    transition: 0.3s;
 }
 
 .form-actions button:hover {
-    background-color: #00cc00;
+    background: linear-gradient(135deg, #00bfff, #00ffd5);
+    transform: scale(1.05);
 }
 
 .form-actions a {
-    color: #00ff00;
+    color: #00ffe0;
     font-size: 12px;
     text-decoration: none;
 }
@@ -100,99 +135,77 @@ h2 {
     text-decoration: underline;
 }
 
-/* Sign up link styling */
+/* Signup link */
 .signup-link {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .signup-link a {
-    color: #00ff00;
+    color: #00ffd5;
+    font-weight: bold;
     text-decoration: none;
 }
 
 .signup-link a:hover {
-    text-decoration: underline;
+    color: #00e1ff;
 }
 
-
-/* Dropdown styling */
-.input-group select {
-    width: 250px;
-    padding: 10px;
-    background-color: #333;
-    border: 1px solid #00ff00;
-    border-radius: 5px;
-    color: #00ff00;
-    font-size: 14px;
-}
-
-/* Empty rectangle box */
+/* Empty box */
 .empty-box {
     margin-top: 30px;
     width: 90%;
-    height: 200px;
-    background-color: #0a0a0a;
-    border: 2px dashed #00ff00;
-    border-radius: 10px;
-}
-
-
-/* Start button full width */
-#start-btn {
-    width: 100px;
-}
-
-/* Form styling - updated for bigger box */
-.form-container-2 {
-    background-color: #1a1a1a;
-    padding: 30px;
-    border: 2px solid #00ff00;
-    border-radius: 10px;
-    width: 65vw; /* 60% of the viewport width */
-    height: 75vh; /* 70% of the viewport height */
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-
-.empty-box {
-    margin-top: 30px;
-    width: 90%;
-    min-height: 200px;  /* fixed minimum height */
-    background-color: #000;
-    border: 2px solid #00ff00;
-    border-radius: 10px;
+    min-height: 200px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px dashed #00ffd5;
+    border-radius: 20px;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
+    transition: 0.3s;
 }
 
-/* List styling inside the box */
+.empty-box:hover {
+    border-color: #00e1ff;
+    box-shadow: 0 0 15px #00e1ff;
+}
+
+/* List styling */
 .empty-box ul {
     list-style: none;
-    padding: 0;
     width: 100%;
 }
 
 .empty-box li {
-    margin: 8px 0;
+    margin: 10px 0;
     font-size: 16px;
     text-align: center;
-    color: #00ff00;
-    font-family: 'Courier New', Courier, monospace;
+    color: #00ffd5;
 }
 
-/* Text message when no mechanics */
+/* Empty message */
 .empty-box p {
     font-size: 16px;
+    color: #00ffd5;
     text-align: center;
-    color: #00ff00;
 }
 
+/* Start button */
+#start-btn {
+    width: 140px;
+    padding: 12px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #00ffd5, #00bfff);
+    color: #0a0a0a;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
+#start-btn:hover {
+    background: linear-gradient(135deg, #00bfff, #00ffd5);
+    transform: scale(1.1);
+}

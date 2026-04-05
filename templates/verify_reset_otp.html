@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reset OTP - ChalakSetu</title>
+  <link rel="icon" href="https://png.pngtree.com/png-clipart/20230812/original/pngtree-auto-mechanic-icon-color-flat-picture-image_7877632.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent1: #4facfe;
+      --accent2: #00f2fe;
+    }
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: linear-gradient(-45deg, #1e293b, #0f172a);
+      background-size: 400% 400%;
+      animation: gradient 10s ease infinite;
+      height: 100vh; display: flex;
+      justify-content: center; align-items: center;
+      color: white;
+    }
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .otp-container {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(20px);
+      padding: 35px;
+      border-radius: 16px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 10px;
+      font-size: 15px;
+      border: none;
+    }
+    input {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+    input::placeholder {
+      color: #ccc;
+    }
+    input:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 0 10px var(--accent2);
+    }
+    button {
+      background: linear-gradient(to right, var(--accent1), var(--accent2));
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px var(--accent2);
+    }
+    .flash {
+      background: rgba(255, 0, 0, 0.2);
+      border-left: 4px solid red;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <form method="POST" action="/verify_reset_otp" class="otp-container">
+    <h2>📩 Enter OTP</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <input type="text" name="otp" placeholder="Enter OTP from your email" required>
+    <button type="submit">Verify OTP</button>
+  </form>
+
+</body>
+</html>
