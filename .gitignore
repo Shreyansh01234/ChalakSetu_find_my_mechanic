@@ -1,1 +1,5 @@
-myenv
+instance/
+database.db
+.idea/
+myenv/
+__pycache__/
